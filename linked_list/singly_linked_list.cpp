@@ -21,11 +21,12 @@ int32_t search(Node *head, const int val){
   int32_t counter{-1};
   Node *temp{head};
   while(temp != nullptr){
-    if(temp->val == val)
-      return ++counter;
     ++counter;
+    if(temp->val == val)
+      return counter;
+    temp = temp->nxt;
   }
-  return counter;
+  return -1;
 }
 
 void insert(Node*& head,const int val){
@@ -36,6 +37,17 @@ void insert(Node*& head,const int val){
 }
 
 void del(Node *head,const int val){
+  if(!head)
+    return;
+
+  if(head->val == val){
+    Node *temp{head};
+    head = head->nxt;
+    delete temp;
+    return;
+  }
+  
+  
   Node  *crt{head}, *prev{head};
   while(crt != nullptr){
     if(crt->val == val){
