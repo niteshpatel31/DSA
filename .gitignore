@@ -1,0 +1,8 @@
+.clangd
+*.out
+*.text
+*.text
+*.log
+*.core_dump
+*.data
+

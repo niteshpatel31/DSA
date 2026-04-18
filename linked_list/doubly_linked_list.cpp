@@ -7,8 +7,8 @@ struct Node {
   Node *nxt;
 };
 
-void traverse(Node *head){
-  Node *tmp{head};
+void traverse(Node *crt){
+  Node *tmp{crt};
   while (tmp != nullptr) {
     printf("%i -> ", tmp->val);
     tmp = tmp->nxt;
@@ -17,41 +17,53 @@ void traverse(Node *head){
   printf("nullptr.\n");
 }
 
+
+Node* find(Node* head, const int val){
+  Node *tmp = new Node;
+  tmp = head;
+  while(tmp != nullptr){
+    if(tmp->val == val)
+      return tmp;
+    tmp = tmp->nxt;
+  }
+  return tmp;
+}
+
 void traverse_reverse(Node *tail){
   Node *tmp{tail};
   while(tmp != nullptr){
     printf("%i -> ", tmp->val);
     tmp = tmp->prev;
   }
-  delete tmp;
   printf("nullptr.\n");
 }
 
-void insert_after(Node *head, const int val){
+void insert_after(Node *crt, const int val){
   Node *tmp = new Node{val, nullptr, nullptr};
-  tmp->prev = head;
-  head->nxt = tmp;
-  head = tmp;
+  if(crt->prev!=nullptr){
+     crt->prev->nxt = tmp;
+     tmp->prev = crt->prev;
+  }
+  tmp->prev = crt;
+  crt->nxt = tmp;
   return;
 }
 
-void insert_before(Node *tail, const int val){
+void insert_before(Node *crt, const int val){
   Node *tmp = new Node{val, nullptr, nullptr};
-  tmp->prev = tail;
-  tail->nxt =  tmp;
-  tail = tmp;
+  if(crt->nxt != nullptr)
+    crt->nxt->prev = tmp;
+  crt->prev = tmp;
+  crt = tmp;
   return;
 }
 
 Node *head = new Node{17, nullptr, nullptr};
-Node *tail = new Node{81, nullptr, nullptr};
 
 int main (int argc, char *argv[]) {
-  head -> nxt = tail;
-  tail -> prev = head;
-  insert_before(tail, 234);
   insert_after(head, 224);
+  insert_after(head, 333333);
+  traverse_reverse(head);
   traverse(head); 
-  traverse_reverse(tail);
   return 0;
 }

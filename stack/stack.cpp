@@ -1,13 +1,6 @@
 #include <iostream>
+#include "../common/node.h"
 #define endl "\n"
-
-template <typename T>
-struct Node{
-    public:
-        T data;
-        Node *prev{nullptr};
-        Node(T val):data(val){}
-};
 
 template <typename T>
 class Stack{
@@ -20,21 +13,21 @@ class Stack{
         ~Stack(){
             while (top!=nullptr) {
                 Node<T> *tmp = top;
-                top = top->prev;
+                top = top->next;
                 delete tmp;
             }
         }
 
         void push(T val){
             Node<T> *tmp = new Node(val);
-            if(top!=nullptr)tmp->prev = top;
+            if(top!=nullptr)tmp->next = top;
             top = tmp;
             return;
         }
         void pop(){
             if(this->top!=nullptr){
                 Node<T> *tmp = this->top;
-                top = top->prev;
+                top = top->next;
                 delete tmp;
             }
             return;
