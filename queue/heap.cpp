@@ -44,9 +44,9 @@ public:
     shiftUp(heap.size()-1); 
   }
   
-  const T extractMax()const{
+  const T extractMax(){
     if(heap.size() < 1) throw std::runtime_error("HEAP UNDERFLOW");   
-    T max = heap.peek();
+    T max = peek();
     heap[0] = heap[heap.size()-1];
     shiftUp(heap.size()-1);
     return max;

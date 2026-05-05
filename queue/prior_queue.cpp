@@ -4,17 +4,17 @@
 template<typename T>
 class PriorityQueue{
 private:
-  Heap<T> heap;
+  Heap<T> queue;
 
 public:
   PriorityQueue(){} 
   PriorityQueue(const T& data){insert(data);}
 
-  void insert(const T& data){heap.insert(data);}
-  const T extractMax()const{return heap.extractMax();}
-  const T& peek()const{return this->heap.peek();}
-  const T& size()const{return heap.size();}
-  void print(){heap.print();}
+  void insert(const T& data){queue.insert(data);}
+  const T extractMax(){return queue.extractMax();}
+  const T& peek()const{return this->queue.peek();}
+  const T& size()const{return queue.size();}
+  void print(){queue.print();}
 };
 
 int main(int argc, const char* argv[]){
