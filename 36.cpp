@@ -4,35 +4,63 @@
 #include <unordered_set>
 #include <vector>
 
+// class Solution {
+// public:
+//   const bool isValidSudoku(std::vector<std::vector<char>> &board) const {
+//     std::unordered_set<char> row, col;
+//     std::vector<std::unordered_set<char>> square(9u);
+//     row.reserve(9u);
+//     col.reserve(9u);
+//     square.reserve(9u);
+//     size_t i{0u}, j{0u}, box{0u};
+//     for (j = 0u; j < board.size(); j++) {
+//       row.clear();
+//       col.clear();
+//       for (i = 0u; i < board[j].size(); i++) {
+//         box = (j / 3) * 3 + (i / 3);
+//         if (board[j][i] != '.') {
+//           if (row.count(board[j][i]) || square[box].count(board[j][i]))
+//             return false;
+
+//           if (board[j][i] != '.') {
+//             square[box].insert(board[j][i]);
+//             row.insert(board[j][i]);
+//           }
+//         }
+//         if (board[i][j] != '.') {
+//           if (col.count(board[i][j]))
+//             return false;
+//           if (board[i][j] != '.')
+//             col.insert(board[i][j]);
+//         }
+//       }
+//     }
+//     return true;
+//   }
+// };
+
+// Aproach 2 with Bit Manipulation
 class Solution {
 public:
   const bool isValidSudoku(std::vector<std::vector<char>> &board) const {
-    std::unordered_set<char> row, col;
-    std::vector<std::unordered_set<char>> square(9u);
-    row.reserve(9u);
-    col.reserve(9u);
-    square.reserve(9u);
-    size_t i{0u}, j{0u}, box{0u};
-    for (j = 0u; j < board.size(); j++) {
-      row.clear();
-      col.clear();
-      for (i = 0u; i < board[j].size(); i++) {
-        box = (j / 3) * 3 + (i / 3);
-        if (board[j][i] != '.') {
-          if (row.count(board[j][i]) || square[box].count(board[j][i]))
-            return false;
+    int rows[9] = {};  // bitmask per row
+    int cols[9] = {};  // bitmask per col
+    int boxes[9] = {}; // bitmask per 3x3 box
 
-          if (board[j][i] != '.') {
-            square[box].insert(board[j][i]);
-            row.insert(board[j][i]);
-          }
-        }
-        if (board[i][j] != '.') {
-          if (col.count(board[i][j]))
-            return false;
-          if (board[i][j] != '.')
-            col.insert(board[i][j]);
-        }
+    for (int j = 0; j < 9; j++) {
+      for (int i = 0; i < 9; i++) {
+        if (board[j][i] == '.')
+          continue;
+
+        int bit = 1 << (board[j][i] - '1'); // '1'→bit0 ... '9'→bit8
+        int box = (j / 3) * 3 + (i / 3);
+
+        if (rows[j] & bit || cols[i] & bit || boxes[box] & bit)
+          return false;
+
+        rows[j] |= bit;
+        cols[i] |= bit;
+        boxes[box] |= bit;
       }
     }
     return true;

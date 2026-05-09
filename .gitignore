@@ -7,4 +7,4 @@ main
 *.log
 *.core_dump
 *.data
-
+core.*
