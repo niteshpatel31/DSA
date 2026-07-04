@@ -4,14 +4,14 @@
 
 struct Node {
   int data;
-  Node* next= nullptr;
+  Node *next = nullptr;
 };
 
-int main (int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
   Node *head;
   head->data = 435;
   Node *tail = nullptr;
   head->next = tail;
-  std::cout<<head->data<<" : "<<tail<<endl;
+  std::cout << head->data << " : " << tail << endl;
   return 0;
 }

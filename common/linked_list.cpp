@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LINKED_LIST
+#define LINKED_LIST
 
 #include <bits/stdc++.h>
 #include <fmt/format.h>
@@ -43,3 +44,5 @@ void printList(ListNode *head) {
   fmt::println("");
   return;
 }
+
+#endif
