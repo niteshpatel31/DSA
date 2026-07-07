@@ -1,4 +1,7 @@
-#include "../common/vector.cpp"
+#ifndef HEAP
+#define HEAP
+
+#include "../common/vector.h"
 #include <cstdint>
 #include <fmt/base.h>
 #include <fmt/format.h>
@@ -14,10 +17,10 @@
    right(i) -> i*2+1 , where i is idx
 
 */
-
+namespace nc {
 template <class T> class Heap {
 private:
-  vector<T> heap;
+  nc::vector<T> heap;
   int mx;
 
   uint64_t parent(const int64_t &idx) const noexcept { return idx / 2; }
@@ -61,6 +64,8 @@ public:
 
   void increaseKey() {}
 
+  void reserve(const size_t size) { this->heap.reserve(size); }
+
   void print() {
     for (auto &c : heap)
       fmt::print("{0}, ", c);
@@ -68,3 +73,6 @@ public:
     return;
   }
 };
+
+} // namespace nc
+#endif

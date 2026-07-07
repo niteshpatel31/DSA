@@ -1,12 +1,18 @@
+#include <cstdint>
+#include <fmt/base.h>
 #include <iostream>
+#ifndef VECTOR
+#define VECTOR
+#include <vector>
+namespace nc {
 
 constexpr char endl = '\n';
 
 // vector container
 template <typename T> class vector {
 private:
-  size_t v_size = 0uz;
-  size_t v_capacity = 1uz;
+  size_t v_size{0};
+  size_t v_capacity{1};
   T *ptr;
 
   T &access(const size_t &idx) {
@@ -21,8 +27,8 @@ public:
   vector(const vector &v) { this = v; }
   ~vector() { delete ptr; }
 
-  const size_t size() { return this->v_size; }
-  const size_t capacity() { return this->v_capacity; }
+  size_t size() const { return this->v_size; }
+  size_t capacity() const { return this->v_capacity; }
   void reserve(const int &size) {
     this->ptr = new T[size];
     this->v_capacity = size;
@@ -42,3 +48,12 @@ public:
       return *(this->ptr + (sizeof(*this->ptr) * (idx - 1)));
   }
 };
+
+template <typename T> void print_vec(const std::vector<T> &vec) {
+  for (const T &x : vec)
+    fmt::print("{}, ", x);
+  fmt::println("");
+  return;
+}
+} // namespace nc
+#endif
