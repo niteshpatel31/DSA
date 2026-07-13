@@ -1,9 +1,8 @@
 #include <cstdint>
 #include <fmt/base.h>
 #include <iostream>
-#ifndef VECTOR
-#define VECTOR
-#include <vector>
+#ifndef VECTOR_H
+#define VECTOR_H
 namespace nc {
 
 constexpr char endl = '\n';
