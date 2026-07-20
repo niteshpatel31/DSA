@@ -1,6 +1,7 @@
 #include <cstdint>
 #include <fmt/base.h>
 #include <iostream>
+#include <vector>
 #ifndef VECTOR_H
 #define VECTOR_H
 namespace nc {
@@ -47,7 +48,6 @@ public:
       return *(this->ptr + (sizeof(*this->ptr) * (idx - 1)));
   }
 };
-
 template <typename T> void print_vec(const std::vector<T> &vec) {
   for (const T &x : vec)
     fmt::print("{}, ", x);
