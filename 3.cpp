@@ -1,27 +1,38 @@
 #include <cstdlib>
+#include <fmt/base.h>
 #include <fmt/format.h>
 #include <string>
-#include <unordered_map>
+#include <unordered_set>
 
 class Solution {
+private:
+  std::unordered_set<char> set;
+  int left{}, right{}, max{}, size{};
+
 public:
-  int lengthOfLongestSubstring(const std::string &s) {
-    unsigned int max{}, cur{};
-    std::unordered_map<char, int> map;
-    map.reserve(26);
-    for (int i{0}; i < static_cast<int>(s.size()) - 1; i++) {
-      const char c{s[i]};
-      ++cur;
-      if (map.find(c) != map.end()) {
-        i = map.find(c)->second + 1;
-        map.erase(c);
-        if (cur > max)
-          max = cur;
-        cur = 0;
-      } else
-        map.insert({c, i});
+  Solution() { set.reserve(26); }
+  int lengthOfLongestSubstring(const std::string &s) noexcept {
+    if (s.size() < 2)
+      return s.size();
+    max = 0;
+    left = 0;
+    size = static_cast<int>(s.size());
+    for (right = 0; right < size; ++right) {
+      if (set.find(s[right]) == set.end()) {
+        set.insert(s[right]);
+        max = std::max(max, right - left + 1);
+      } else {
+        while (s[left] != s[right]) {
+          set.erase(s[left]);
+          ++left;
+        }
+        set.erase(s[left]);
+        ++left;
+        set.insert(s[right]);
+      }
     }
-    return max;
+
+    return (max) ? max : 1;
   }
 };
 
